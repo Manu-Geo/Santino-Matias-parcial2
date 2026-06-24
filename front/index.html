@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Cursos Extracurriculares</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">EduCursos</div>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#registro">Registrar Curso</a></li>
+      <li><a href="#listado">Oferta Académica</a></li>
+    </ul>
+  </nav>
+
+  <header id="inicio" class="hero">
+    <div class="hero-content">
+      <h1>Plataforma de Cursos Extracurriculares</h1>
+      <p>Potencia tu futuro y expande tus conocimientos con nuestra variada oferta académica adaptada para vos.</p>
+      <a href="#listado" class="btn-hero">Ver Cursos Disponibles</a>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <section id="registro" class="panel">
+      <h2>Registrar Nuevo Curso</h2>
+      <form id="formCurso">
+        <input type="text" id="nombre" placeholder="Nombre del curso (ej: Programación)" required>
+        
+        <input type="text" id="categoria" placeholder="Categoría (ej: Primaria, Matemática)" required>
+        
+        <input type="number" id="duracion" placeholder="Duración (en meses o semanas)" min="1" required>
+        
+        <input type="number" id="cuposDisponibles" placeholder="Cupos Disponibles" min="0" required>
+        
+        <select id="activo">
+          <option value="true">Estado: Activo</option>
+          <option value="false">Estado: Inactivo</option>
+        </select>
+        
+        <button type="submit">Guardar Curso</button>
+      </form>
+      <p id="mensaje" class="mensaje-alerta"></p>
+    </section>
+
+    <section id="listado" class="panel">
+      <h2>Oferta Académica Actual</h2>
+
+      <div class="acciones">
+        <button id="btnCargar">🔄 Recargar Cursos</button>
+        <button id="btnTodos">👁️ Mostrar Todos</button>
+        <button id="btnConCupos">🔥 Solo con Cupos disponibles</button>
+        <button id="btnEstadisticas">📊 Ver Estadísticas</button>
+      </div>
+
+      <div id="listadoCursos" class="galeria"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 - Desarrollo de Software. Todos los derechos reservados.</p>
+    <p>Parcial Integrador Individual - Programación II</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

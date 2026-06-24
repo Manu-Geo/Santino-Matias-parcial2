@@ -9,7 +9,7 @@ const {
   eliminarCurso 
 } = require("../controllers/cursosController");
 
-// Definición de las rutas obligatorias del parcial
+
 router.get("/", obtenerCursos);          // GET /api/cursos
 router.get("/:id", obtenerCursoPorId);   // GET /api/cursos/:id
 router.post("/", crearCurso);            // POST /api/cursos
