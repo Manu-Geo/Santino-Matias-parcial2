@@ -1,6 +1,4 @@
-/* ==========================================================================
-   1. VARIABLES Y CONFIGURACIÓN GENERAL
-   ========================================================================== */
+
 :root {
   --primary-color: #2563eb;
   --primary-hover: #1d4ed8;
@@ -35,9 +33,6 @@ body {
   padding: 2rem 1rem;
 }
 
-/* ==========================================================================
-   2. MENÚ DE NAVEGACIÓN (Navbar)
-   ========================================================================== */
 .navbar {
   background-color: var(--panel-bg);
   display: flex;
@@ -73,9 +68,6 @@ body {
   color: var(--primary-color);
 }
 
-/* ==========================================================================
-   3. PRESENTACIÓN INSTITUCIONAL (Hero Section)
-   ========================================================================== */
 .hero {
   background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
   color: white;
@@ -116,9 +108,7 @@ body {
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3);
 }
 
-/* ==========================================================================
-   4. PANELES Y FORMULARIOS
-   ========================================================================== */
+
 .panel {
   background-color: var(--panel-bg);
   padding: 2rem;
@@ -175,7 +165,7 @@ body {
   font-weight: 500;
 }
 
-/* Botonera de acciones y filtros */
+
 .acciones {
   display: flex;
   flex-wrap: wrap;
@@ -199,16 +189,12 @@ body {
   border-color: var(--primary-color);
 }
 
-/* ==========================================================================
-   5. GALERÍA DE TARJETAS (Cursos)
-   ========================================================================== */
 .galeria {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
 }
 
-/* Estilos individuales de la Tarjeta */
 .tarjeta {
   background-color: var(--panel-bg);
   border: 1px solid #e2e8f0;
@@ -218,7 +204,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: calc(33.333% - 1rem); /* 3 por fila en pantallas grandes */
+  width: calc(33.333% - 1rem); 
   position: relative;
   transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -277,7 +263,7 @@ body {
   color: white;
 }
 
-/* Estados de los Cursos (Punto Extra +1) */
+
 .curso-activo {
   border-left: 5px solid var(--success-color);
 }
@@ -297,9 +283,7 @@ body {
 .estado-activo { background-color: #d1fae5; color: #065f46; }
 .estado-inactivo { background-color: #f1f5f9; color: #475569; }
 
-/* ==========================================================================
-   6. FOOTER
-   ========================================================================== */
+
 .footer {
   background-color: #0f172a;
   color: #94a3b8;
@@ -313,21 +297,16 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* ==========================================================================
-   7. RESPONSIVE DESIGN (Media Queries obligatorios)
-   ========================================================================== */
 
-/* Tablets y pantallas medianas */
 @media (max-width: 900px) {
   .tarjeta {
-    width: calc(50% - 0.75rem); /* 2 por fila */
+    width: calc(50% - 0.75rem); 
   }
   .hero-content h1 {
     font-size: 2rem;
   }
 }
 
-/* Celulares */
 @media (max-width: 600px) {
   .navbar {
     flex-direction: column;
@@ -338,7 +317,7 @@ body {
     justify-content: space-around;
   }
   .tarjeta {
-    width: 100%; /* 1 por fila */
+    width: 100%; 
   }
   .acciones {
     flex-direction: column;

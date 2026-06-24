@@ -1,6 +1,6 @@
 const { sql, getConnection } = require("../config/db");
 
-// 1. Probar la conexión (Opcional, útil para Postman)
+
 async function probarConexion(req, res) {
   try {
     const pool = await getConnection();
@@ -11,7 +11,7 @@ async function probarConexion(req, res) {
   }
 }
 
-// 2. GET /api/cursos - Obtener todos los cursos
+
 async function obtenerCursos(req, res) {
   try {
     const pool = await getConnection();
@@ -26,7 +26,7 @@ async function obtenerCursos(req, res) {
   }
 }
 
-// 3. GET /api/cursos/:id - Obtener un curso por su ID (Obligatorio en el parcial)
+
 async function obtenerCursoPorId(req, res) {
   try {
     const { id } = req.params;
@@ -49,38 +49,43 @@ async function obtenerCursoPorId(req, res) {
   }
 }
 
-// 4. POST /api/cursos - Registrar un nuevo curso
+
 async function crearCurso(req, res) {
   try {
     const { nombre, categoria, duracion, cuposDisponibles, activo } = req.body;
 
-    // Validamos que vengan los datos requeridos por la base de datos
     if (!nombre || !categoria || duracion === undefined || cuposDisponibles === undefined) {
       return res.status(400).json({ mensaje: "Debe completar todos los datos obligatorios" });
     }
 
     const pool = await getConnection();
-    const resultado = await pool.request()
+    
+   
+    await pool.request()
       .input("nombre", sql.NVarChar(100), nombre)
       .input("categoria", sql.NVarChar(100), categoria)
       .input("duracion", sql.Int, Number(duracion))
       .input("cuposDisponibles", sql.Int, Number(cuposDisponibles))
-      // Si no mandan 'activo', por defecto lo registramos como true (1)
       .input("activo", sql.Bit, activo === undefined ? true : (activo === true || activo === "true"))
       .query(`
         INSERT INTO Cursos (Nombre, Categoria, Duracion, CuposDisponibles, Activo)
-        OUTPUT INSERTED.Id, INSERTED.Nombre, INSERTED.Categoria, 
-               INSERTED.Duracion, INSERTED.CuposDisponibles, INSERTED.Activo
         VALUES (@nombre, @categoria, @duracion, @cuposDisponibles, @activo)
       `);
 
-    res.status(201).json({ mensaje: "Curso guardado correctamente", curso: resultado.recordset[0] });
+   
+    res.status(201).json({ mensaje: "Curso guardado correctamente" });
+
   } catch (error) {
+    
+    console.log("=== ERROR DETECTADO EN LA BASE DE DATOS ===");
+    console.error(error.message);
+    console.log("==========================================");
+    
     res.status(500).json({ mensaje: "Error al guardar el curso", error: error.message });
   }
 }
 
-// 5. DELETE /api/cursos/:id - Eliminar un curso
+
 async function eliminarCurso(req, res) {
   try {
     const { id } = req.params;
@@ -90,7 +95,7 @@ async function eliminarCurso(req, res) {
       .input("id", sql.Int, Number(id))
       .query("DELETE FROM Cursos WHERE Id = @id");
 
-    // rowsAffected nos dice cuántas filas se borraron de la BD
+   
     if (resultado.rowsAffected[0] === 0) {
       return res.status(404).json({ mensaje: "Curso no encontrado" });
     }
@@ -101,7 +106,7 @@ async function eliminarCurso(req, res) {
   }
 }
 
-// Exportamos las 5 funciones para que las consuma cursosRoutes.js
+
 module.exports = { 
   probarConexion, 
   obtenerCursos, 

@@ -1,18 +1,18 @@
-// URL base de tu API Backend
+
 const API_URL = "http://localhost:3000/api/cursos";
 
-// Referencias a los elementos del DOM (HTML)
+
 const formCurso = document.getElementById("formCurso");
 const listadoCursos = document.getElementById("listadoCursos");
 const mensajeAlerta = document.getElementById("mensaje");
 
-// Botones de acción y filtros
+
 const btnCargar = document.getElementById("btnCargar");
 const btnTodos = document.getElementById("btnTodos");
 const btnConCupos = document.getElementById("btnConCupos");
 const btnEstadisticas = document.getElementById("btnEstadisticas");
 
-// Variable global para guardar los cursos cargados y poder filtrarlos localmente
+
 let cursosCache = [];
 
 
@@ -21,7 +21,7 @@ async function traerCursos() {
     const respuesta = await fetch(API_URL);
     if (!respuesta.ok) throw new Error("Error en la respuesta del servidor");
     
-    // Guardamos en el arreglo global y renderizamos
+    
     cursosCache = await respuesta.json();
     mostrarTarjetas(cursosCache);
   } catch (error) {
@@ -30,9 +30,9 @@ async function traerCursos() {
   }
 }
 
-// Renderiza las tarjetas HTML usando los datos del array que reciba
+
 function mostrarTarjetas(listaDeCursos) {
-  listadoCursos.innerHTML = ""; // Limpiamos la galería
+  listadoCursos.innerHTML = ""; 
 
   if (listaDeCursos.length === 0) {
     listadoCursos.innerHTML = "<p>No hay cursos disponibles para mostrar.</p>";
@@ -40,12 +40,12 @@ function mostrarTarjetas(listaDeCursos) {
   }
 
   listaDeCursos.forEach(curso => {
-    // Definimos clases y badges visuales según el estado activo/inactivo (Punto Extra)
+    
     const claseEstado = curso.Activo ? "curso-activo" : "curso-inactivo";
     const textoEstado = curso.Activo ? "Activo" : "Inactivo";
     const badgeEstadoClase = curso.Activo ? "estado-activo" : "estado-inactivo";
 
-    // Creamos la estructura HTML de la tarjeta con Flexbox
+  
     const tarjeta = document.createElement("div");
     tarjeta.className = `tarjeta ${claseEstado}`;
     tarjeta.innerHTML = `
@@ -111,7 +111,7 @@ async function eliminarCurso(id) {
 
     if (respuesta.ok) {
       mostrarMensaje("Curso eliminado correctamente", "success");
-      traerCursos(); // Recargamos la grilla
+      traerCursos(); 
     } else {
       mostrarMensaje(data.mensaje || "No se pudo eliminar", "error");
     }
@@ -120,19 +120,15 @@ async function eliminarCurso(id) {
   }
 }
 
-
-
-// Botón: Recargar / Mostrar todos
 btnCargar.addEventListener("click", traerCursos);
 btnTodos.addEventListener("click", () => mostrarTarjetas(cursosCache));
 
-// Filtro: Solo cursos con cupos disponibles (> 0)
 btnConCupos.addEventListener("click", () => {
   const filtrados = cursosCache.filter(c => c.CuposDisponibles > 0);
   mostrarTarjetas(filtrados);
 });
 
-// Filtro/Alerta: Mostrar Estadísticas Generales en un alert interactivo
+
 btnEstadisticas.addEventListener("click", () => {
   const total = cursosCache.length;
   const activos = cursosCache.filter(c => c.Activo).length;
@@ -146,14 +142,14 @@ btnEstadisticas.addEventListener("click", () => {
 
 
 
-// Muestra mensajes temporales debajo del formulario
+
 function mostrarMensaje(texto, tipo) {
   mensajeAlerta.innerText = texto;
   mensajeAlerta.style.color = tipo === "success" ? "#10b981" : "#ef4444";
   
-  // Borra el mensaje después de 4 segundos
+ 
   setTimeout(() => { mensajeAlerta.innerText = ""; }, 4000);
 }
 
-// Al cargar la página web por primera vez, dispara la lectura de la Base de datos
+
 document.addEventListener("DOMContentLoaded", traerCursos);
